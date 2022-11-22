@@ -1,1 +1,1 @@
-# react-nextJs-with-docker
+# react-next-docker
