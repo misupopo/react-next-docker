@@ -2,10 +2,12 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import React from "react";
+// どうも pages 配下に styled-components ファイルを置くと npm run build でエラーになってしまう
+// 別ファイルにする場合は styles/pages 配下に置く
 import {
   Main,
   Title,
-} from './index.style'
+} from '@/styles/pages/index.style'
 // import の仕方は { Main } のようにしたい
 // import * as S from './index.style';
 import { Header } from '@/components/Header/Header';
