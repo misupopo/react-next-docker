@@ -1,0 +1,9 @@
+// paths を tsconfig.json に入れても機能しなかったので tsconfig.paths.json に切り出して読み込むようにした
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
