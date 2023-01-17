@@ -11,8 +11,40 @@ import {
 // import の仕方は { Main } のようにしたい
 // import * as S from './index.style';
 import { Header } from '@/components/Header/Header';
+// indexeddb のインスタンス
+import { db } from '@/db/db';
+import { nanoid } from "nanoid";
+import { Button } from "primereact/button";
+import { ability, Can } from "@/context/permission.context";
 
 const Home: React.FC = () => {
+  const handlePermissionClick = async (subject: string = "user") => {
+    await db.test.clear();
+    await db.test.add({
+      // id: nanoid(5),
+      id: "1",
+      name: new Date().toISOString(),
+    });
+    // ability.update([{ action: "manage", subject: subject }]);
+  };
+
+  const bulkUpdate = async (subject: string = "user") => {
+    await db.test.bulkAdd([
+      {
+        id: "1",
+        name: new Date().toISOString(),
+      },
+      {
+        id: "2",
+        name: new Date().toISOString(),
+      },
+      {
+        id: "3",
+        name: new Date().toISOString(),
+      },
+    ]);
+  };
+
   return (
     <div className={styles.container}>
       <Header
@@ -29,6 +61,17 @@ const Home: React.FC = () => {
         <Title>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </Title>
+
+        <div>
+          <div>indexeddb の検証</div>
+          <Button onClick={() => handlePermissionClick("user")}>Userの1件更新</Button>
+          <div>User テーブルにレコードを1件作成する</div>
+          <div>この User ボタンを押した瞬間に indexeddb の初期化が走る</div>
+
+          <div>indexeddb bulk update の検証</div>
+          <Button onClick={() => bulkUpdate("user")}>Userの複数件更新</Button>
+          <div>すでに key が table に存在する場合はエラーになる</div>
+        </div>
 
         <p className={styles.description}>
           Get started by editing{' '}
